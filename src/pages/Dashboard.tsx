@@ -8,6 +8,7 @@ import {
   User,
   LogOut
 } from "lucide-react";
+import FacultyNav from "@/components/FacultyNav";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -39,19 +40,29 @@ const Dashboard = () => {
     },
   ];
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   return (
     <div className="min-h-screen bg-accent">
       <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-gray-900">Faculty Dashboard</h1>
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/")}
-            className="flex items-center space-x-2"
-          >
-            <LogOut className="w-4 h-4" />
-            <span>Sign Out</span>
-          </Button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-semibold text-gray-900">Faculty Dashboard</h1>
+            <div className="flex items-center space-x-4">
+              <FacultyNav />
+              <Button
+                variant="ghost"
+                onClick={handleLogout}
+                className="flex items-center space-x-2"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
+              </Button>
+            </div>
+          </div>
         </div>
       </header>
 

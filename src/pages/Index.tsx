@@ -20,12 +20,14 @@ const Index = () => {
     e.preventDefault();
     
     if (email === defaultCredentials.admin.email && password === defaultCredentials.admin.password) {
+      localStorage.setItem("user", email);
       toast({
         title: "Admin Login Successful",
         description: "Welcome back, Admin!",
       });
       navigate("/dashboard");
     } else if (email === defaultCredentials.faculty.email && password === defaultCredentials.faculty.password) {
+      localStorage.setItem("user", email);
       toast({
         title: "Faculty Login Successful",
         description: "Welcome back, Faculty member!",
@@ -46,16 +48,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-accent to-background p-4">
-      <div className="w-full max-w-md animate-fade-up">
-        <Card className="glass-card">
+    <div className="min-h-screen flex items-center justify-center bg-accent">
+      <div className="w-full max-w-md">
+        <Card>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">
-              Faculty Career Portal
+            <CardTitle className="text-2xl text-center">
+              Faculty Career System
             </CardTitle>
-            <p className="text-sm text-muted-foreground text-center">
-              Enter your credentials to access your account
-            </p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
@@ -65,7 +64,6 @@ const Index = () => {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="input-field"
                   required
                 />
               </div>
@@ -75,13 +73,12 @@ const Index = () => {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="input-field"
                   required
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full btn-primary"
+                className="w-full"
               >
                 Sign In
               </Button>
