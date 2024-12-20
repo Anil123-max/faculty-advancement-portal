@@ -15,6 +15,7 @@ import ResearchTracking from "./pages/admin/ResearchTracking";
 import FacultyManagement from "./pages/admin/FacultyManagement";
 import EventLogs from "./pages/admin/EventLogs";
 import SystemLogs from "./pages/admin/SystemLogs";
+import Profile from "./pages/admin/Profile";
 
 const queryClient = new QueryClient();
 
@@ -128,6 +129,14 @@ const App = () => (
             element={
               <ProtectedRoute allowedRole="admin">
                 <SystemLogs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/profile"
+            element={
+              <ProtectedRoute allowedRole="admin">
+                <Profile />
               </ProtectedRoute>
             }
           />
