@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { BookOpen, Award, FileText, User } from "lucide-react";
+import { BookOpen, Award, FileText, User, LayoutDashboard } from "lucide-react";
 
 const FacultyNav = () => {
   const location = useLocation();
 
   const navItems = [
+    { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/research", label: "Research", icon: BookOpen },
     { href: "/career", label: "Career", icon: Award },
     { href: "/appraisals", label: "Appraisals", icon: FileText },
