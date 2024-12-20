@@ -22,24 +22,24 @@ const menuItems = [
     path: "/admin/reports",
   },
   {
-    title: "Faculty",
-    icon: Users,
-    path: "/admin/faculty",
-  },
-  {
-    title: "Research",
+    title: "Research Tracking",
     icon: BookOpen,
-    path: "/admin/research",
+    path: "/admin/research-tracking",
   },
   {
-    title: "Events",
+    title: "Faculty Management",
+    icon: Users,
+    path: "/admin/faculty-management",
+  },
+  {
+    title: "Event Logs",
     icon: Calendar,
-    path: "/admin/events",
+    path: "/admin/event-logs",
   },
   {
     title: "System Logs",
     icon: Shield,
-    path: "/admin/logs",
+    path: "/admin/system-logs",
   },
   {
     title: "Profile",

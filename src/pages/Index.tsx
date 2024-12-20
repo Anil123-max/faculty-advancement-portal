@@ -20,14 +20,14 @@ const Index = () => {
     e.preventDefault();
     
     if (email === defaultCredentials.admin.email && password === defaultCredentials.admin.password) {
-      localStorage.setItem("user", email);
+      localStorage.setItem("userRole", "admin");
       toast({
         title: "Admin Login Successful",
         description: "Welcome back, Admin!",
       });
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     } else if (email === defaultCredentials.faculty.email && password === defaultCredentials.faculty.password) {
-      localStorage.setItem("user", email);
+      localStorage.setItem("userRole", "faculty");
       toast({
         title: "Faculty Login Successful",
         description: "Welcome back, Faculty member!",
