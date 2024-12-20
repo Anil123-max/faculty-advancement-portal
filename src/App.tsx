@@ -8,14 +8,14 @@ import Dashboard from "./pages/Dashboard";
 import Research from "./pages/faculty/Research";
 import Career from "./pages/faculty/Career";
 import Appraisals from "./pages/faculty/Appraisals";
-import Profile from "./pages/faculty/Profile";
+import FacultyProfile from "./pages/faculty/Profile";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Reports from "./pages/admin/Reports";
 import ResearchTracking from "./pages/admin/ResearchTracking";
 import FacultyManagement from "./pages/admin/FacultyManagement";
 import EventLogs from "./pages/admin/EventLogs";
 import SystemLogs from "./pages/admin/SystemLogs";
-import Profile from "./pages/admin/Profile";
+import AdminProfile from "./pages/admin/Profile";
 
 const queryClient = new QueryClient();
 
@@ -78,7 +78,7 @@ const App = () => (
             path="/profile"
             element={
               <ProtectedRoute allowedRole="faculty">
-                <Profile />
+                <FacultyProfile />
               </ProtectedRoute>
             }
           />
@@ -136,7 +136,7 @@ const App = () => (
             path="/admin/profile"
             element={
               <ProtectedRoute allowedRole="admin">
-                <Profile />
+                <AdminProfile />
               </ProtectedRoute>
             }
           />
