@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -48,66 +49,84 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-accent">
-      <div className="w-full max-w-md">
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">
-              Faculty Career System
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full"
-              >
-                Sign In
-              </Button>
-              <div className="flex gap-2 mt-4">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-accent to-background">
+      {/* Navigation */}
+      <nav className="container mx-auto px-4 py-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-primary">Faculty Career System</h1>
+          <div className="space-x-4">
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
+            <Link to="/register" className="nav-link">Register</Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Login Form */}
+      <div className="flex-grow container mx-auto px-4 py-16 flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <Card className="glass-card">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl text-center">
+                Welcome Back
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-2">
+                  <Input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
                 <Button
-                  type="button"
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => handleDefaultLogin('faculty')}
+                  type="submit"
+                  className="w-full"
                 >
-                  Login as Faculty
+                  Sign In
                 </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => handleDefaultLogin('admin')}
-                >
-                  Login as Admin
-                </Button>
-              </div>
-              <div className="text-sm text-center text-muted-foreground mt-4">
-                <p>Default Faculty: faculty@example.com / faculty123</p>
-                <p>Default Admin: admin@example.com / admin123</p>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+                <div className="flex gap-2 mt-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => handleDefaultLogin('faculty')}
+                  >
+                    Login as Faculty
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => handleDefaultLogin('admin')}
+                  >
+                    Login as Admin
+                  </Button>
+                </div>
+                <div className="text-sm text-center text-muted-foreground mt-4">
+                  <p>Default Faculty: faculty@example.com / faculty123</p>
+                  <p>Default Admin: admin@example.com / admin123</p>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
