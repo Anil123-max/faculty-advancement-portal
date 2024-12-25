@@ -4,19 +4,53 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Mail, Phone, MapPin, Building } from "lucide-react";
+import { User, Mail, Phone, MapPin, Building, Camera } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { AdminSettings } from "@/components/admin/AdminSettings";
+import { AdminNotifications } from "@/components/admin/AdminNotifications";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isEditing, setIsEditing] = useState(false);
+  const [profileData, setProfileData] = useState({
+    fullName: "Admin User",
+    email: "admin@example.com",
+    phone: "+1 234 567 890",
+    department: "Administration",
+    role: "System Administrator",
+    employeeId: "ADM001",
+    location: "Main Campus",
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setProfileData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSave = () => {
+    setIsEditing(false);
     toast({
       title: "Profile Updated",
       description: "Your profile has been successfully updated.",
     });
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    // Reset to original data if needed
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Handle image upload logic here
+      toast({
+        title: "Profile Picture Updated",
+        description: "Your profile picture has been successfully updated.",
+      });
+    }
   };
 
   return (
@@ -34,25 +68,53 @@ const Profile = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="flex flex-col items-center gap-4">
-                <Avatar className="h-24 w-24">
-                  <AvatarImage src="/placeholder.svg" />
-                  <AvatarFallback>AD</AvatarFallback>
-                </Avatar>
-                <Button variant="outline" size="sm">Change Photo</Button>
+                <div className="relative">
+                  <Avatar className="h-24 w-24">
+                    <AvatarImage src="/placeholder.svg" />
+                    <AvatarFallback>AD</AvatarFallback>
+                  </Avatar>
+                  <label
+                    htmlFor="avatar-upload"
+                    className="absolute bottom-0 right-0 p-1 bg-primary rounded-full cursor-pointer hover:bg-primary-hover transition-colors"
+                  >
+                    <Camera className="h-4 w-4 text-white" />
+                    <input
+                      id="avatar-upload"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleImageUpload}
+                    />
+                  </label>
+                </div>
               </div>
               
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Full Name</Label>
-                  <Input defaultValue="Admin User" />
+                  <Input
+                    value={profileData.fullName}
+                    onChange={(e) => handleInputChange("fullName", e.target.value)}
+                    disabled={!isEditing}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>Email</Label>
-                  <Input defaultValue="admin@example.com" type="email" />
+                  <Input
+                    value={profileData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    type="email"
+                    disabled={!isEditing}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>Phone</Label>
-                  <Input defaultValue="+1 234 567 890" type="tel" />
+                  <Input
+                    value={profileData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    type="tel"
+                    disabled={!isEditing}
+                  />
                 </div>
               </div>
             </CardContent>
@@ -68,27 +130,46 @@ const Profile = () => {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label>Department</Label>
-                <Input defaultValue="Administration" />
+                <Input
+                  value={profileData.department}
+                  onChange={(e) => handleInputChange("department", e.target.value)}
+                  disabled={!isEditing}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Role</Label>
-                <Input defaultValue="System Administrator" readOnly />
+                <Input value={profileData.role} readOnly />
               </div>
               <div className="space-y-2">
                 <Label>Employee ID</Label>
-                <Input defaultValue="ADM001" readOnly />
+                <Input value={profileData.employeeId} readOnly />
               </div>
               <div className="space-y-2">
                 <Label>Location</Label>
-                <Input defaultValue="Main Campus" />
+                <Input
+                  value={profileData.location}
+                  onChange={(e) => handleInputChange("location", e.target.value)}
+                  disabled={!isEditing}
+                />
               </div>
             </CardContent>
           </Card>
+
+          <AdminNotifications />
+          <AdminSettings />
         </div>
 
         <div className="flex justify-end gap-4">
-          <Button variant="outline">Cancel</Button>
-          <Button onClick={handleSave}>Save Changes</Button>
+          {isEditing ? (
+            <>
+              <Button variant="outline" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave}>Save Changes</Button>
+            </>
+          ) : (
+            <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>
+          )}
         </div>
       </div>
     </AdminLayout>
