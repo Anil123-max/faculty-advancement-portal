@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BookOpen, Award, Users, Target } from "lucide-react";
+import Footer from "@/components/Footer";
 
 const About = () => {
   const features = [
@@ -28,7 +29,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-accent to-background">
+    <div className="min-h-screen bg-gradient-to-b from-accent to-background flex flex-col">
       <nav className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-primary">Faculty Career System</h1>
@@ -44,7 +45,7 @@ const About = () => {
         </div>
       </nav>
 
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-16 flex-grow">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold">About Our Platform</h1>
@@ -68,6 +69,7 @@ const About = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

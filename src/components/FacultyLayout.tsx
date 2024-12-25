@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import FacultyNav from "./FacultyNav";
-import Footer from "./Footer";
+import FacultyFooter from "./FacultyFooter";
 
 interface FacultyLayoutProps {
   children: ReactNode;
@@ -20,7 +20,7 @@ const FacultyLayout: FC<FacultyLayoutProps> = ({ children }) => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         {children}
       </main>
-      <Footer />
+      <FacultyFooter />
     </div>
   );
 };

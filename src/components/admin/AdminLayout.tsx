@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminHeader } from "./AdminHeader";
-import Footer from "../Footer";
+import AdminFooter from "../AdminFooter";
 
 export const AdminLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -11,7 +11,7 @@ export const AdminLayout = ({ children }: { children: ReactNode }) => {
         <AdminSidebar />
         <main className="flex-1 p-4">{children}</main>
       </div>
-      <Footer />
+      <AdminFooter />
     </div>
   );
 };
