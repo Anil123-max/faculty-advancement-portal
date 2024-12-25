@@ -8,8 +8,6 @@ import { User, Mail, Phone, MapPin, Building, Camera } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { AdminSettings } from "@/components/admin/AdminSettings";
-import { AdminNotifications } from "@/components/admin/AdminNotifications";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -39,13 +37,11 @@ const Profile = () => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    // Reset to original data if needed
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Handle image upload logic here
       toast({
         title: "Profile Picture Updated",
         description: "Your profile picture has been successfully updated.",
@@ -154,9 +150,6 @@ const Profile = () => {
               </div>
             </CardContent>
           </Card>
-
-          <AdminNotifications />
-          <AdminSettings />
         </div>
 
         <div className="flex justify-end gap-4">

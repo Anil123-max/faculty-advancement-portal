@@ -10,10 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AdminNotifications } from "./AdminNotifications";
+import { AdminSettings } from "./AdminSettings";
+import { useState } from "react";
 
 export const AdminHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("userRole");
@@ -33,28 +38,28 @@ export const AdminHeader = () => {
       <div className="px-4 h-16 flex items-center justify-between">
         <div className="font-semibold text-lg">Faculty Admin Panel</div>
         <div className="flex items-center gap-4">
-          <DropdownMenu>
+          <DropdownMenu open={showNotifications} onOpenChange={setShowNotifications}>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-secondary rounded-full flex items-center justify-center text-[10px] text-white">
+                  3
+                </span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-80">
-              <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <div className="max-h-[300px] overflow-auto">
-                {[1, 2, 3].map((item) => (
-                  <DropdownMenuItem key={item} className="cursor-pointer">
-                    <div className="flex flex-col gap-1">
-                      <p className="font-medium">New Faculty Registration</p>
-                      <p className="text-sm text-muted-foreground">
-                        A new faculty member has registered
-                      </p>
-                      <p className="text-xs text-muted-foreground">2 hours ago</p>
-                    </div>
-                  </DropdownMenuItem>
-                ))}
-              </div>
+              <AdminNotifications />
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu open={showSettings} onOpenChange={setShowSettings}>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Settings className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-80">
+              <AdminSettings />
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -68,10 +73,6 @@ export const AdminHeader = () => {
               <DropdownMenuItem onClick={handleProfile}>
                 <User className="mr-2 h-4 w-4" />
                 Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>

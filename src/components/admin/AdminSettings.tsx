@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Bell, Moon, Globe, Lock } from "lucide-react";
@@ -23,14 +22,13 @@ export const AdminSettings = () => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Lock className="h-5 w-5 text-primary" />
-          System Settings
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+    <div className="p-4 space-y-6">
+      <div className="flex items-center gap-2">
+        <Lock className="h-5 w-5 text-primary" />
+        <h3 className="font-semibold">System Settings</h3>
+      </div>
+      
+      <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label>Email Notifications</Label>
@@ -71,7 +69,7 @@ export const AdminSettings = () => {
             }
           />
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
