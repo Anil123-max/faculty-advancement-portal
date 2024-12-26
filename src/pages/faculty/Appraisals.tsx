@@ -18,6 +18,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import AppraisalReport from "@/components/faculty/AppraisalReport";
 
 const formSchema = z.object({
   teachingHours: z.string().min(1, "Teaching hours is required"),
@@ -38,6 +39,22 @@ const previousAppraisals = [
     rating: "Excellent",
     highlights: "Outstanding research contributions and teaching performance",
     status: "Approved",
+    details: {
+      teachingPerformance: "Demonstrated exceptional teaching skills with innovative methodologies. Student satisfaction rate of 95%.",
+      researchOutput: "Published 4 high-impact papers in top-tier journals. Secured 2 major research grants.",
+      administrativeDuties: "Successfully led the department's curriculum revision committee.",
+      studentFeedback: "Consistently received positive feedback for clarity of instruction and availability for consultation.",
+      achievements: [
+        "Received the Outstanding Faculty Award",
+        "Successfully mentored 3 PhD students to completion",
+        "Organized international conference on AI in Education"
+      ],
+      recommendations: [
+        "Continue mentoring junior faculty members",
+        "Consider developing new courses in emerging technologies",
+        "Expand research collaborations with industry partners"
+      ]
+    }
   },
   {
     id: 2,
@@ -45,6 +62,22 @@ const previousAppraisals = [
     rating: "Very Good",
     highlights: "Significant improvement in research output",
     status: "Approved",
+    details: {
+      teachingPerformance: "Maintained high teaching standards across undergraduate and graduate courses.",
+      researchOutput: "Published 3 papers in reputed journals. Increased citation count by 40%.",
+      administrativeDuties: "Active participation in faculty recruitment and department committees.",
+      studentFeedback: "Average rating of 4.5/5 across all courses taught.",
+      achievements: [
+        "Developed new course curriculum for AI and Machine Learning",
+        "Established research partnership with leading tech company",
+        "Presented at two international conferences"
+      ],
+      recommendations: [
+        "Focus on securing more external research funding",
+        "Enhance industry collaboration opportunities",
+        "Consider developing online learning materials"
+      ]
+    }
   },
   {
     id: 3,
@@ -52,12 +85,29 @@ const previousAppraisals = [
     rating: "Good",
     highlights: "Consistent teaching performance",
     status: "Approved",
+    details: {
+      teachingPerformance: "Effective teaching methodology with good student engagement.",
+      researchOutput: "Published 2 papers and presented at national conference.",
+      administrativeDuties: "Regular participation in department meetings and committees.",
+      studentFeedback: "Positive feedback on course structure and delivery.",
+      achievements: [
+        "Updated course materials for modern industry requirements",
+        "Mentored 5 undergraduate research projects",
+        "Contributed to department's strategic planning"
+      ],
+      recommendations: [
+        "Increase research publication output",
+        "Participate in more professional development activities",
+        "Expand network with international collaborators"
+      ]
+    }
   },
 ];
 
 const Appraisals = () => {
   const { toast } = useToast();
   const [progress, setProgress] = useState(0);
+  const [selectedAppraisal, setSelectedAppraisal] = useState<any>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -285,7 +335,11 @@ const Appraisals = () => {
                           {appraisal.highlights}
                         </p>
                       </div>
-                      <Button variant="outline" className="w-full">
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => setSelectedAppraisal(appraisal)}
+                      >
                         View Full Report
                       </Button>
                     </div>
@@ -295,6 +349,15 @@ const Appraisals = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Appraisal Report Dialog */}
+        {selectedAppraisal && (
+          <AppraisalReport
+            appraisal={selectedAppraisal}
+            isOpen={!!selectedAppraisal}
+            onClose={() => setSelectedAppraisal(null)}
+          />
+        )}
       </div>
     </FacultyLayout>
   );
