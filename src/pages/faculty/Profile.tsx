@@ -1,33 +1,74 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 import { GraduationCap, BookOpen, Award, Mail, Phone, MapPin } from "lucide-react";
 import FacultyLayout from "@/components/FacultyLayout";
 
 const Profile = () => {
+  const { toast } = useToast();
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState({
+    name: "Dr. John Doe",
+    title: "Professor of Computer Science",
+    email: "john.doe@university.edu",
+    phone: "+1 (555) 123-4567",
+    office: "Building A, Room 301",
+    bio: "Dr. John Doe is a Professor of Computer Science with over 10 years of experience in academic research and teaching. His research focuses on artificial intelligence and machine learning, with particular emphasis on computer vision and natural language processing.",
+  });
+
+  const handleSave = () => {
+    setIsEditing(false);
+    toast({
+      title: "Profile Updated",
+      description: "Your profile has been successfully updated.",
+    });
+  };
+
   return (
     <FacultyLayout>
       <div className="space-y-6">
-        {/* Profile Header */}
         <div className="flex items-start gap-6 p-6 bg-white rounded-lg shadow-sm">
           <Avatar className="w-24 h-24">
             <AvatarImage src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold">Dr. John Doe</h2>
-            <p className="text-muted-foreground">Professor of Computer Science</p>
+          <div className="space-y-2 flex-1">
+            {isEditing ? (
+              <Input 
+                value={profile.name}
+                onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                className="text-2xl font-bold"
+              />
+            ) : (
+              <h2 className="text-2xl font-bold">{profile.name}</h2>
+            )}
+            {isEditing ? (
+              <Input 
+                value={profile.title}
+                onChange={(e) => setProfile({ ...profile, title: e.target.value })}
+                className="text-muted-foreground"
+              />
+            ) : (
+              <p className="text-muted-foreground">{profile.title}</p>
+            )}
             <div className="flex items-center gap-4">
-              <Button variant="outline" size="sm">Edit Profile</Button>
-              <Button variant="outline" size="sm">Change Photo</Button>
+              {isEditing ? (
+                <>
+                  <Button onClick={handleSave} variant="default">Save Changes</Button>
+                  <Button onClick={() => setIsEditing(false)} variant="outline">Cancel</Button>
+                </>
+              ) : (
+                <Button onClick={() => setIsEditing(true)} variant="outline">Edit Profile</Button>
+              )}
             </div>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Personal Information */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -36,18 +77,46 @@ const Profile = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Email</label>
-                <Input value="john.doe@university.edu" readOnly />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Phone</label>
-                <Input value="+1 (555) 123-4567" readOnly />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Office Location</label>
-                <Input value="Building A, Room 301" readOnly />
-              </div>
+              {isEditing ? (
+                <>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Email</label>
+                    <Input 
+                      value={profile.email}
+                      onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Phone</label>
+                    <Input 
+                      value={profile.phone}
+                      onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Office Location</label>
+                    <Input 
+                      value={profile.office}
+                      onChange={(e) => setProfile({ ...profile, office: e.target.value })}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Email</label>
+                    <Input value={profile.email} readOnly />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Phone</label>
+                    <Input value={profile.phone} readOnly />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Office Location</label>
+                    <Input value={profile.office} readOnly />
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -120,19 +189,27 @@ const Profile = () => {
               </div>
             </CardContent>
           </Card>
+
         </div>
 
-        {/* Bio */}
         <Card>
           <CardHeader>
             <CardTitle>Biography</CardTitle>
           </CardHeader>
           <CardContent>
-            <Textarea 
-              className="min-h-[150px] resize-none"
-              value="Dr. John Doe is a Professor of Computer Science with over 10 years of experience in academic research and teaching. His research focuses on artificial intelligence and machine learning, with particular emphasis on computer vision and natural language processing. He has published extensively in top-tier conferences and journals, and has received multiple awards for his contributions to the field."
-              readOnly
-            />
+            {isEditing ? (
+              <Textarea 
+                className="min-h-[150px]"
+                value={profile.bio}
+                onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
+              />
+            ) : (
+              <Textarea 
+                className="min-h-[150px] resize-none"
+                value={profile.bio}
+                readOnly
+              />
+            )}
           </CardContent>
         </Card>
       </div>
