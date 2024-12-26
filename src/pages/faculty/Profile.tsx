@@ -1,190 +1,140 @@
-import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { GraduationCap, BookOpen, Award, Mail, Phone, MapPin } from "lucide-react";
 import FacultyLayout from "@/components/FacultyLayout";
-import { User, Mail, Phone, MapPin, GraduationCap, BookOpen } from "lucide-react";
 
 const Profile = () => {
-  const { toast } = useToast();
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
-    fullName: "Dr. John Doe",
-    email: "john.doe@university.edu",
-    phone: "+1 (555) 123-4567",
-    office: "Building A, Room 301",
-    department: "Computer Science",
-    specialization: "Artificial Intelligence",
-    bio: "Dr. John Doe is a Professor of Computer Science with over 10 years of experience in artificial intelligence and machine learning research.",
-    publications: "23",
-    citations: "156",
-    hIndex: "12"
-  });
-
-  const handleSave = () => {
-    setIsEditing(false);
-    toast({
-      title: "Profile Updated",
-      description: "Your profile has been successfully updated.",
-    });
-  };
-
   return (
     <FacultyLayout>
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
-          {!isEditing ? (
-            <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>
-          ) : (
-            <div className="space-x-2">
-              <Button variant="outline" onClick={() => setIsEditing(false)}>
-                Cancel
-              </Button>
-              <Button onClick={handleSave}>Save Changes</Button>
+        {/* Profile Header */}
+        <div className="flex items-start gap-6 p-6 bg-white rounded-lg shadow-sm">
+          <Avatar className="w-24 h-24">
+            <AvatarImage src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold">Dr. John Doe</h2>
+            <p className="text-muted-foreground">Professor of Computer Science</p>
+            <div className="flex items-center gap-4">
+              <Button variant="outline" size="sm">Edit Profile</Button>
+              <Button variant="outline" size="sm">Change Photo</Button>
             </div>
-          )}
+          </div>
         </div>
 
-        <div className="grid gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Personal Information */}
           <Card>
-            <CardContent className="p-6">
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center">
-                    <User className="h-10 w-10 text-primary" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-semibold">{profileData.fullName}</h2>
-                    <p className="text-muted-foreground">{profileData.department}</p>
-                  </div>
-                </div>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Mail className="w-5 h-5" />
+                Contact Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Email</label>
+                <Input value="john.doe@university.edu" readOnly />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Phone</label>
+                <Input value="+1 (555) 123-4567" readOnly />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Office Location</label>
+                <Input value="Building A, Room 301" readOnly />
+              </div>
+            </CardContent>
+          </Card>
 
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label>Full Name</Label>
-                    <Input
-                      value={profileData.fullName}
-                      onChange={(e) =>
-                        setProfileData({ ...profileData, fullName: e.target.value })
-                      }
-                      disabled={!isEditing}
-                    />
-                  </div>
+          {/* Academic Qualifications */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="w-5 h-5" />
+                Academic Qualifications
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <p className="font-medium">Ph.D. in Computer Science</p>
+                <p className="text-sm text-muted-foreground">Stanford University, 2015</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-medium">M.S. in Computer Science</p>
+                <p className="text-sm text-muted-foreground">MIT, 2012</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-medium">B.Tech in Computer Science</p>
+                <p className="text-sm text-muted-foreground">IIT Delhi, 2010</p>
+              </div>
+            </CardContent>
+          </Card>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="grid gap-2">
-                      <Label>Email</Label>
-                      <div className="flex items-center space-x-2">
-                        <Mail className="h-4 w-4 text-muted-foreground" />
-                        <Input
-                          value={profileData.email}
-                          onChange={(e) =>
-                            setProfileData({ ...profileData, email: e.target.value })
-                          }
-                          disabled={true}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label>Phone</Label>
-                      <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-muted-foreground" />
-                        <Input
-                          value={profileData.phone}
-                          onChange={(e) =>
-                            setProfileData({ ...profileData, phone: e.target.value })
-                          }
-                          disabled={!isEditing}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="grid gap-2">
-                      <Label>Office Location</Label>
-                      <div className="flex items-center space-x-2">
-                        <MapPin className="h-4 w-4 text-muted-foreground" />
-                        <Input
-                          value={profileData.office}
-                          onChange={(e) =>
-                            setProfileData({ ...profileData, office: e.target.value })
-                          }
-                          disabled={!isEditing}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid gap-2">
-                      <Label>Department</Label>
-                      <div className="flex items-center space-x-2">
-                        <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                        <Input
-                          value={profileData.department}
-                          onChange={(e) =>
-                            setProfileData({ ...profileData, department: e.target.value })
-                          }
-                          disabled={true}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label>Specialization</Label>
-                    <div className="flex items-center space-x-2">
-                      <BookOpen className="h-4 w-4 text-muted-foreground" />
-                      <Input
-                        value={profileData.specialization}
-                        onChange={(e) =>
-                          setProfileData({ ...profileData, specialization: e.target.value })
-                        }
-                        disabled={!isEditing}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label>Bio</Label>
-                    <Textarea
-                      value={profileData.bio}
-                      onChange={(e) =>
-                        setProfileData({ ...profileData, bio: e.target.value })
-                      }
-                      disabled={!isEditing}
-                      className="min-h-[100px]"
-                    />
-                  </div>
+          {/* Research Interests */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5" />
+                Research Interests
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  {["Artificial Intelligence", "Machine Learning", "Computer Vision", 
+                    "Natural Language Processing", "Robotics"].map((interest) => (
+                    <span key={interest} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                      {interest}
+                    </span>
+                  ))}
                 </div>
               </div>
             </CardContent>
           </Card>
 
+          {/* Awards & Recognition */}
           <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Academic Metrics</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-primary/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Publications</p>
-                  <p className="text-2xl font-bold">{profileData.publications}</p>
-                </div>
-                <div className="p-4 bg-primary/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">Citations</p>
-                  <p className="text-2xl font-bold">{profileData.citations}</p>
-                </div>
-                <div className="p-4 bg-primary/10 rounded-lg">
-                  <p className="text-sm text-muted-foreground">h-index</p>
-                  <p className="text-2xl font-bold">{profileData.hIndex}</p>
-                </div>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5" />
+                Awards & Recognition
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <p className="font-medium">Outstanding Research Award</p>
+                <p className="text-sm text-muted-foreground">University of Excellence, 2023</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-medium">Best Paper Award</p>
+                <p className="text-sm text-muted-foreground">International Conference on AI, 2022</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-medium">Teaching Excellence Award</p>
+                <p className="text-sm text-muted-foreground">Department of Computer Science, 2021</p>
               </div>
             </CardContent>
           </Card>
         </div>
+
+        {/* Bio */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Biography</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Textarea 
+              className="min-h-[150px] resize-none"
+              value="Dr. John Doe is a Professor of Computer Science with over 10 years of experience in academic research and teaching. His research focuses on artificial intelligence and machine learning, with particular emphasis on computer vision and natural language processing. He has published extensively in top-tier conferences and journals, and has received multiple awards for his contributions to the field."
+              readOnly
+            />
+          </CardContent>
+        </Card>
       </div>
     </FacultyLayout>
   );

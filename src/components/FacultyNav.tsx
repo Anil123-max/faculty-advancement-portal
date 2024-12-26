@@ -1,11 +1,9 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { BookOpen, Award, FileText, User, LayoutDashboard, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BookOpen, Award, FileText, User, LayoutDashboard } from "lucide-react";
 
 const FacultyNav = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const navItems = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -14,11 +12,6 @@ const FacultyNav = () => {
     { href: "/appraisals", label: "Appraisals", icon: FileText },
     { href: "/profile", label: "Profile", icon: User },
   ];
-
-  const handleLogout = () => {
-    localStorage.removeItem("userRole");
-    navigate("/");
-  };
 
   return (
     <nav className="flex items-center space-x-4 lg:space-x-6 mx-4">
@@ -37,14 +30,6 @@ const FacultyNav = () => {
           <span>{label}</span>
         </Link>
       ))}
-      <Button
-        variant="ghost"
-        onClick={handleLogout}
-        className="flex items-center space-x-2"
-      >
-        <LogOut className="h-4 w-4" />
-        <span>Sign Out</span>
-      </Button>
     </nav>
   );
 };

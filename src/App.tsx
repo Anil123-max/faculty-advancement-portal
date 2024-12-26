@@ -8,7 +8,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
-import Dashboard from "./pages/faculty/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import Research from "./pages/faculty/Research";
 import Career from "./pages/faculty/Career";
 import Appraisals from "./pages/faculty/Appraisals";

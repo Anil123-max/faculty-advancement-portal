@@ -2,42 +2,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, TrendingUp, FileText, Users } from "lucide-react";
 import FacultyLayout from "@/components/FacultyLayout";
-import { useState } from "react";
-import PublicationDetails from "@/components/faculty/PublicationDetails";
 
 const Research = () => {
-  const [selectedPublication, setSelectedPublication] = useState<any>(null);
-
   const recentPublications = [
     {
       title: "Deep Learning Approaches in Modern Computer Vision",
       journal: "IEEE Transactions on AI",
       date: "2024",
       citations: 45,
-      abstract: "This paper explores recent advances in deep learning approaches for computer vision tasks...",
-      authors: ["Dr. John Doe", "Dr. Jane Smith", "Prof. Robert Johnson"],
-      doi: "10.1234/ai.2024.1234",
-      keywords: ["Deep Learning", "Computer Vision", "AI", "Neural Networks"]
     },
     {
       title: "Natural Language Processing in Healthcare",
       journal: "Journal of Medical Informatics",
       date: "2023",
       citations: 32,
-      abstract: "An investigation into the applications of NLP in healthcare settings...",
-      authors: ["Dr. John Doe", "Dr. Sarah Wilson"],
-      doi: "10.1234/med.2023.5678",
-      keywords: ["NLP", "Healthcare", "Medical Informatics"]
     },
     {
       title: "Advances in Robotics and Automation",
       journal: "Robotics Today",
       date: "2023",
       citations: 28,
-      abstract: "A comprehensive review of recent developments in robotics and automation...",
-      authors: ["Dr. John Doe", "Dr. Michael Brown"],
-      doi: "10.1234/rob.2023.9012",
-      keywords: ["Robotics", "Automation", "AI", "Industry 4.0"]
     },
   ];
 
@@ -114,13 +98,7 @@ const Research = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium">{pub.citations} citations</p>
-                    <Button 
-                      variant="link" 
-                      size="sm"
-                      onClick={() => setSelectedPublication(pub)}
-                    >
-                      View Details
-                    </Button>
+                    <Button variant="link" size="sm">View Details</Button>
                   </div>
                 </div>
               ))}
@@ -155,15 +133,6 @@ const Research = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* Publication Details Dialog */}
-        {selectedPublication && (
-          <PublicationDetails
-            publication={selectedPublication}
-            isOpen={!!selectedPublication}
-            onClose={() => setSelectedPublication(null)}
-          />
-        )}
       </div>
     </FacultyLayout>
   );
