@@ -116,10 +116,6 @@ const Index = () => {
                     Login as Admin
                   </Button>
                 </div>
-                <div className="text-sm text-center text-muted-foreground mt-4">
-                  <p>Default Faculty: faculty@example.com / faculty123</p>
-                  <p>Default Admin: admin@example.com / admin123</p>
-                </div>
               </form>
             </CardContent>
           </Card>
