@@ -98,14 +98,6 @@ const Dashboard = () => {
             <h1 className="text-2xl font-semibold text-gray-900">Faculty Dashboard</h1>
             <div className="flex items-center space-x-4">
               <FacultyNav />
-              <Button
-                variant="ghost"
-                onClick={handleLogout}
-                className="flex items-center space-x-2"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Sign Out</span>
-              </Button>
             </div>
           </div>
         </div>
