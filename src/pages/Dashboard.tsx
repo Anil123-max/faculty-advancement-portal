@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import FacultyLayout from "@/components/FacultyLayout";
 import { 
   BookOpen, 
   Award, 
@@ -91,18 +92,8 @@ const Dashboard = () => {
   };
 
   return (
+    <FacultyLayout>
     <div className="min-h-screen bg-accent">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-semibold text-gray-900">Faculty Dashboard</h1>
-            <div className="flex items-center space-x-4">
-              <FacultyNav />
-            </div>
-          </div>
-        </div>
-      </header>
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {menuItems.map((item, index) => (
@@ -202,6 +193,7 @@ const Dashboard = () => {
         </div>
       </main>
     </div>
+  </FacultyLayout>
   );
 };
 
