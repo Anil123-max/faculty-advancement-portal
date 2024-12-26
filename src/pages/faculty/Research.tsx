@@ -1,27 +1,50 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, TrendingUp, FileText, Users } from "lucide-react";
 import FacultyLayout from "@/components/FacultyLayout";
+import PublicationDetails from "@/components/faculty/PublicationDetails";
+
+interface Publication {
+  title: string;
+  journal: string;
+  date: string;
+  citations: number;
+  abstract?: string;
+  authors?: string[];
+  doi?: string;
+}
 
 const Research = () => {
-  const recentPublications = [
+  const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
+
+  const recentPublications: Publication[] = [
     {
       title: "Deep Learning Approaches in Modern Computer Vision",
       journal: "IEEE Transactions on AI",
       date: "2024",
       citations: 45,
+      abstract: "This paper presents a comprehensive survey of deep learning approaches in modern computer vision, focusing on recent advances and future directions.",
+      authors: ["John Doe", "Jane Smith", "Robert Johnson"],
+      doi: "10.1109/TAI.2024.123456"
     },
     {
       title: "Natural Language Processing in Healthcare",
       journal: "Journal of Medical Informatics",
       date: "2023",
       citations: 32,
+      abstract: "An exploration of NLP applications in healthcare, including clinical text analysis and patient record processing.",
+      authors: ["John Doe", "Sarah Wilson"],
+      doi: "10.1016/j.jmi.2023.789012"
     },
     {
       title: "Advances in Robotics and Automation",
       journal: "Robotics Today",
       date: "2023",
       citations: 28,
+      abstract: "A review of recent advances in robotics and automation, with focus on industrial applications.",
+      authors: ["John Doe", "Michael Brown"],
+      doi: "10.1007/robot.2023.345678"
     },
   ];
 
@@ -46,7 +69,6 @@ const Research = () => {
   return (
     <FacultyLayout>
       <div className="space-y-6">
-        {/* Research Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardContent className="pt-6">
@@ -83,7 +105,6 @@ const Research = () => {
           </Card>
         </div>
 
-        {/* Recent Publications */}
         <Card>
           <CardHeader>
             <CardTitle>Recent Publications</CardTitle>
@@ -98,7 +119,13 @@ const Research = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium">{pub.citations} citations</p>
-                    <Button variant="link" size="sm">View Details</Button>
+                    <Button 
+                      variant="link" 
+                      size="sm"
+                      onClick={() => setSelectedPublication(pub)}
+                    >
+                      View Details
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -106,7 +133,6 @@ const Research = () => {
           </CardContent>
         </Card>
 
-        {/* Research Trends */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -133,6 +159,14 @@ const Research = () => {
             </div>
           </CardContent>
         </Card>
+
+        {selectedPublication && (
+          <PublicationDetails
+            publication={selectedPublication}
+            isOpen={!!selectedPublication}
+            onClose={() => setSelectedPublication(null)}
+          />
+        )}
       </div>
     </FacultyLayout>
   );
